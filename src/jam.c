@@ -241,8 +241,8 @@ int main(int argc, char *argv[]) {
     int status;
     int i;
 
-    setDefaultInitArgs(&args);
-    class_arg = parseCommandLine(argc, argv, &args);
+    setDefaultInitArgs(&args);//设置默认参数
+    class_arg = parseCommandLine(argc, argv, &args);//解析参数列表，返回主类
 
     args.main_stack_base = &array_class;
 
@@ -251,7 +251,7 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
-   if((system_loader = getSystemClassLoader()) == NULL)
+   if((system_loader = getSystemClassLoader()) == NULL) //获得系统类装载器
         goto error;
 
     mainThreadSetContextClassLoader(system_loader);
@@ -260,7 +260,7 @@ int main(int argc, char *argv[]) {
         if(*cpntr == '.')
             *cpntr = '/';
 
-    main_class = findClassFromClassLoader(argv[class_arg], system_loader);
+    main_class = findClassFromClassLoader(argv[class_arg], system_loader);//找到main方法
     if(main_class != NULL)
         initClass(main_class);
 
